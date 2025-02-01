@@ -1,0 +1,11 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type EarthquakesEntity {
+  id: ID!
+}
+
+type Query {
+  findManyEarthquakes: EarthquakesEntity!
+}

@@ -1,0 +1,36 @@
+.root_layout {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  width: 100%;
+  height: 100%;
+
+  &__inner {
+    display: grid;
+    height: 100%;
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--gap-medium) var(--gap-medium-small);
+  }
+
+  &__main {
+    display: grid;
+    width: 100%;
+    max-width: var(--max-width);
+    height: 100%;
+    margin: 0 auto;
+  }
+
+  @include laptop {
+    &__inner {
+      grid-template-columns: auto 1fr;
+      padding: var(--gap-medium) var(--gap-medium);
+    }
+  }
+
+  @include desktop {
+    &__inner {
+      padding: var(--gap-medium-large) var(--gap-medium-large);
+    }
+  }
+}

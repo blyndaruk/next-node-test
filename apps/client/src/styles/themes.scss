@@ -1,0 +1,13 @@
+:root {
+  // font color
+  --font-color-primary: var(--mui-palette-text-primary);
+  // body color
+  --bg-color-primary: var(--mui-palette-background-default);
+  // border color
+  --border-primary: 1px solid var(--mui-palette-primary-main);
+  // box shadow
+  --box-shadow-primary: 0px 3px 12px 0px var(--mui-palette-primary-main);
+  // scroll
+  --scrollbar-track-color: var(--bg-color-primary);
+  --scrollbar-thumb-color: var(--font-color-primary);
+}

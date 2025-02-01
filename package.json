@@ -1,0 +1,28 @@
+{
+  "name": "cbvdevapp",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "dev": "turbo dev",
+    "docker:up": "cd apps/server && pnpm docker:up",
+    "db:migrate:dev": "cd apps/server && pnpm db:migrate:dev",
+    "db:migrate:dep": "cd apps/server && pnpm db:migrate:dep",
+    "db:generate": "cd apps/server && pnpm db:generate",
+    "db:seed": "cd apps/server && pnpm db:seed",
+    "db:studio": "cd apps/server && pnpm db:studio",
+    "format:client": "cd apps/client && pnpm format",
+    "format:server": "cd apps/server && pnpm format",
+    "format": "pnpm format:client && pnpm format:server",
+    "build": "turbo build",
+    "start": "turbo start:prod"
+  },
+  "dependencies": {
+    "turbo": "^2.4.0"
+  },
+  "volta": {
+    "node": "20.11.0",
+    "pnpm": "1.22.19"
+  },
+  "packageManager": "pnpm@9.7.1"
+}

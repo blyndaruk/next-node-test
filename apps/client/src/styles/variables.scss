@@ -1,0 +1,24 @@
+@use './breakpoints' as *;
+
+:root {
+  --min-width: 320px;
+  --max-width: 1440px;
+
+  --header-height: 7rem;
+
+  --gap-large: 6.4rem;
+  --gap-medium-large: 3.2rem;
+  --gap-medium: 2.4rem;
+  --gap-medium-small: 1.6rem;
+  --gap-small: 0.8rem;
+
+  --transition: 0.25s ease-in-out;
+
+  @include tablet {
+    --header-height: 8rem;
+  }
+
+  @include laptop {
+    --header-height: 9rem;
+  }
+}
