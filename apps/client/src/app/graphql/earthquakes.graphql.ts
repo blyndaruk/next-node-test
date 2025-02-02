@@ -19,4 +19,22 @@ gql`
       }
     }
   }
+
+  mutation CreateEarthquake($input: CreateEarthquakeInput!) {
+    createEarthquake(input: $input) {
+      message
+    }
+  }
+
+  mutation UpdateEarthquake($input: UpdateEarthquakeInput!) {
+    updateEarthquake(input: $input) {
+      message
+    }
+  }
+
+  mutation DeleteEarthquake($input: DeleteEarthquakeInput!) {
+    deleteEarthquake(input: $input) {
+      message
+    }
+  }
 `;

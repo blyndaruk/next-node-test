@@ -135,6 +135,33 @@ export type FindManyEarthquakesQuery = {
   };
 };
 
+export type CreateEarthquakeMutationVariables = Exact<{
+  input: CreateEarthquakeInput;
+}>;
+
+export type CreateEarthquakeMutation = {
+  __typename?: 'Mutation';
+  createEarthquake: { __typename?: 'MessageInterfaceEntity'; message: string };
+};
+
+export type UpdateEarthquakeMutationVariables = Exact<{
+  input: UpdateEarthquakeInput;
+}>;
+
+export type UpdateEarthquakeMutation = {
+  __typename?: 'Mutation';
+  updateEarthquake: { __typename?: 'MessageInterfaceEntity'; message: string };
+};
+
+export type DeleteEarthquakeMutationVariables = Exact<{
+  input: DeleteEarthquakeInput;
+}>;
+
+export type DeleteEarthquakeMutation = {
+  __typename?: 'Mutation';
+  deleteEarthquake: { __typename?: 'MessageInterfaceEntity'; message: string };
+};
+
 export const FindManyEarthquakesDocument = gql`
   query FindManyEarthquakes($input: FindEarthquakesInput!) {
     findManyEarthquakes(input: $input) {
@@ -219,4 +246,145 @@ export type FindManyEarthquakesSuspenseQueryHookResult = ReturnType<
 export type FindManyEarthquakesQueryResult = Apollo.QueryResult<
   FindManyEarthquakesQuery,
   FindManyEarthquakesQueryVariables
+>;
+export const CreateEarthquakeDocument = gql`
+  mutation CreateEarthquake($input: CreateEarthquakeInput!) {
+    createEarthquake(input: $input) {
+      message
+    }
+  }
+`;
+export type CreateEarthquakeMutationFn = Apollo.MutationFunction<
+  CreateEarthquakeMutation,
+  CreateEarthquakeMutationVariables
+>;
+
+/**
+ * __useCreateEarthquakeMutation__
+ *
+ * To run a mutation, you first call `useCreateEarthquakeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateEarthquakeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createEarthquakeMutation, { data, loading, error }] = useCreateEarthquakeMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateEarthquakeMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateEarthquakeMutation,
+    CreateEarthquakeMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<CreateEarthquakeMutation, CreateEarthquakeMutationVariables>(
+    CreateEarthquakeDocument,
+    options,
+  );
+}
+export type CreateEarthquakeMutationHookResult = ReturnType<typeof useCreateEarthquakeMutation>;
+export type CreateEarthquakeMutationResult = Apollo.MutationResult<CreateEarthquakeMutation>;
+export type CreateEarthquakeMutationOptions = Apollo.BaseMutationOptions<
+  CreateEarthquakeMutation,
+  CreateEarthquakeMutationVariables
+>;
+export const UpdateEarthquakeDocument = gql`
+  mutation UpdateEarthquake($input: UpdateEarthquakeInput!) {
+    updateEarthquake(input: $input) {
+      message
+    }
+  }
+`;
+export type UpdateEarthquakeMutationFn = Apollo.MutationFunction<
+  UpdateEarthquakeMutation,
+  UpdateEarthquakeMutationVariables
+>;
+
+/**
+ * __useUpdateEarthquakeMutation__
+ *
+ * To run a mutation, you first call `useUpdateEarthquakeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateEarthquakeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateEarthquakeMutation, { data, loading, error }] = useUpdateEarthquakeMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateEarthquakeMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateEarthquakeMutation,
+    UpdateEarthquakeMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<UpdateEarthquakeMutation, UpdateEarthquakeMutationVariables>(
+    UpdateEarthquakeDocument,
+    options,
+  );
+}
+export type UpdateEarthquakeMutationHookResult = ReturnType<typeof useUpdateEarthquakeMutation>;
+export type UpdateEarthquakeMutationResult = Apollo.MutationResult<UpdateEarthquakeMutation>;
+export type UpdateEarthquakeMutationOptions = Apollo.BaseMutationOptions<
+  UpdateEarthquakeMutation,
+  UpdateEarthquakeMutationVariables
+>;
+export const DeleteEarthquakeDocument = gql`
+  mutation DeleteEarthquake($input: DeleteEarthquakeInput!) {
+    deleteEarthquake(input: $input) {
+      message
+    }
+  }
+`;
+export type DeleteEarthquakeMutationFn = Apollo.MutationFunction<
+  DeleteEarthquakeMutation,
+  DeleteEarthquakeMutationVariables
+>;
+
+/**
+ * __useDeleteEarthquakeMutation__
+ *
+ * To run a mutation, you first call `useDeleteEarthquakeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteEarthquakeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteEarthquakeMutation, { data, loading, error }] = useDeleteEarthquakeMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useDeleteEarthquakeMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteEarthquakeMutation,
+    DeleteEarthquakeMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<DeleteEarthquakeMutation, DeleteEarthquakeMutationVariables>(
+    DeleteEarthquakeDocument,
+    options,
+  );
+}
+export type DeleteEarthquakeMutationHookResult = ReturnType<typeof useDeleteEarthquakeMutation>;
+export type DeleteEarthquakeMutationResult = Apollo.MutationResult<DeleteEarthquakeMutation>;
+export type DeleteEarthquakeMutationOptions = Apollo.BaseMutationOptions<
+  DeleteEarthquakeMutation,
+  DeleteEarthquakeMutationVariables
 >;
