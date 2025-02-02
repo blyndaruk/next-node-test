@@ -1,15 +1,16 @@
-// prisma pagination
-export const prismaPaginationService = (input: {
-  sort?: string;
-  order?: string;
-  page?: number;
-  take?: number;
-  total?: number;
+import { PaginationCommon } from '@/packages/prisma/services/pagination.inteface';
+
+const pages = (total: number, pagination: PaginationCommon) =>
+  Math.ceil((total || 1) / pagination.take);
+
+export const getPrismaPagination = (input: {
+  sort: string;
+  order: string;
+  page: number;
+  take: number;
 }) => {
   const take = input.take;
   const skip = input.page > 1 ? (input.page - 1) * input.take : 0;
-  const pages = (total: number) => Math.ceil((total || 1) / input.take);
-
   const sort = input.sort.split('.');
   const orderBy =
     sort.length > 1
@@ -27,4 +28,29 @@ export const prismaPaginationService = (input: {
       : { [input.sort]: input.order };
 
   return { orderBy, take, skip, pages };
+};
+
+interface CreatePaginatedResponseArgs<T> {
+  data: T;
+  total: number;
+  pagination: PaginationCommon;
+}
+
+export interface PaginatedSelect<T> {
+  data: { select: T };
+}
+
+export const createPaginatedResponse = <T>({
+  data,
+  total,
+  pagination,
+}: CreatePaginatedResponseArgs<T>) => {
+  return {
+    data,
+    pagination: {
+      ...pagination,
+      pages: pages(total, pagination),
+      total,
+    },
+  };
 };

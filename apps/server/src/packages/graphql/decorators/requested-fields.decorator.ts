@@ -1,28 +1,37 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
-import { FieldNode, GraphQLResolveInfo, SelectionNode } from 'graphql';
+import { FieldNode, GraphQLResolveInfo, Kind } from 'graphql';
 
 export interface RequestedFieldsInfo {
   [fieldName: string]: boolean | RequestedFieldsInfo;
 }
 
-// requested fields decorator
 export const RequestedFieldsDecorator = createParamDecorator(
   (data: unknown, context: ExecutionContext) => {
     const ctx = GqlExecutionContext.create(context);
     const info: GraphQLResolveInfo = ctx.getInfo();
-    const selections: readonly SelectionNode[] = info.fieldNodes[0].selectionSet.selections;
 
-    const getRequestedFields = (selections: readonly SelectionNode[]): RequestedFieldsInfo => {
+    const fieldNode = info.fieldNodes[0];
+    if (!fieldNode || !fieldNode.selectionSet) {
+      return {};
+    }
+
+    const selections = fieldNode.selectionSet.selections.filter(
+      (node): node is FieldNode => node.kind === Kind.FIELD,
+    );
+
+    const getRequestedFields = (selections: readonly FieldNode[]): RequestedFieldsInfo => {
       const requestedFields: RequestedFieldsInfo = {};
 
-      selections.forEach((field: FieldNode) => {
+      selections.forEach((field) => {
         if (field.name.value === '__typename') return;
 
         if (field.selectionSet) {
-          requestedFields[field.name.value] = {
-            select: getRequestedFields(field.selectionSet.selections),
-          };
+          requestedFields[field.name.value] = getRequestedFields(
+            field.selectionSet.selections.filter(
+              (node): node is FieldNode => node.kind === Kind.FIELD,
+            ),
+          );
         } else {
           requestedFields[field.name.value] = true;
         }

@@ -1,11 +1,10 @@
 import { Module } from '@nestjs/common';
 
-import { PrismaModule } from '@/packages/prisma';
+import { EarthquakesService } from '@/app/modules/earthquakes/earthquakes.service';
 
 import { EarthquakesResolver } from './earthquakes.resolver';
 
 @Module({
-  imports: [PrismaModule],
-  providers: [EarthquakesResolver],
+  providers: [EarthquakesResolver, EarthquakesService],
 })
 export class EarhquakesModule {}
