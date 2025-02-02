@@ -51,6 +51,7 @@ input PaginationCommon {
 type Mutation {
   createEarthquake(input: CreateEarthquakeInput!): MessageInterfaceEntity!
   updateEarthquake(input: UpdateEarthquakeInput!): MessageInterfaceEntity!
+  deleteEarthquake(input: DeleteEarthquakeInput!): MessageInterfaceEntity!
 }
 
 input CreateEarthquakeInput {
@@ -63,5 +64,9 @@ input UpdateEarthquakeInput {
   location: String
   magnitude: Float
   date: DateTime
+  id: String!
+}
+
+input DeleteEarthquakeInput {
   id: String!
 }

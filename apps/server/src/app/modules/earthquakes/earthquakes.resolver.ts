@@ -2,6 +2,7 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Prisma } from '@prisma/client';
 
 import { CreateEarthquakeInput } from '@/app/modules/earthquakes/dto/create-earthquake.input';
+import { DeleteEarthquakeInput } from '@/app/modules/earthquakes/dto/delete-earthquake.input';
 import { FindEarthquakesInput } from '@/app/modules/earthquakes/dto/find-earthquakes.input';
 import { UpdateEarthquakeInput } from '@/app/modules/earthquakes/dto/update-earthquake.input';
 import { EarthquakesService } from '@/app/modules/earthquakes/earthquakes.service';
@@ -33,5 +34,11 @@ export class EarthquakesResolver {
   @ErrorGraphqlHandlingDecorator(EarthquakesResolver.name)
   updateEarthquake(@Args('input') input: UpdateEarthquakeInput): Promise<MessageInterfaceEntity> {
     return this.earthquakesService.update(input);
+  }
+
+  @Mutation(() => MessageInterfaceEntity)
+  @ErrorGraphqlHandlingDecorator(EarthquakesResolver.name)
+  deleteEarthquake(@Args('input') input: DeleteEarthquakeInput): Promise<MessageInterfaceEntity> {
+    return this.earthquakesService.delete(input);
   }
 }

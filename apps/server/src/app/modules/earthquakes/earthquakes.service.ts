@@ -2,6 +2,7 @@ import { Injectable, InternalServerErrorException, NotFoundException } from '@ne
 import { Prisma } from '@prisma/client';
 
 import { CreateEarthquakeInput } from '@/app/modules/earthquakes/dto/create-earthquake.input';
+import { DeleteEarthquakeInput } from '@/app/modules/earthquakes/dto/delete-earthquake.input';
 import { FindEarthquakesInput } from '@/app/modules/earthquakes/dto/find-earthquakes.input';
 import { UpdateEarthquakeInput } from '@/app/modules/earthquakes/dto/update-earthquake.input';
 import { EarthquakesEntity } from '@/app/modules/earthquakes/entities/earthquakes.entity';
@@ -128,6 +129,44 @@ export class EarthquakesService {
         'EarthquakesService.update',
       );
       throw new InternalServerErrorException('Failed to update earthquake');
+    }
+  }
+
+  async delete(input: DeleteEarthquakeInput): Promise<MessageInterfaceEntity> {
+    try {
+      this.loggerService.log(
+        `Deleting earthquake with ID: ${input.id}`,
+        'EarthquakesService.delete',
+      );
+
+      const existingEarthquake = await this.prismaService.earthquake.findUnique({
+        where: { id: input.id },
+      });
+
+      if (!existingEarthquake) {
+        this.loggerService.error(
+          `Earthquake not found with id: ${input.id}`,
+          'EarthquakesService.delete',
+        );
+        throw new NotFoundException('Earthquake not found');
+      }
+
+      await this.prismaService.earthquake.delete({
+        where: { id: input.id },
+      });
+
+      this.loggerService.log(
+        `Earthquake deleted successfully with ID: ${input.id}`,
+        'EarthquakesService.delete',
+      );
+
+      return { message: 'Earthquake deleted successfully' };
+    } catch (error: any) {
+      this.loggerService.error(
+        `Error in EarthquakesService.delete: ${error.message}`,
+        'EarthquakesService.delete',
+      );
+      throw new InternalServerErrorException('Failed to delete earthquake');
     }
   }
 }
