@@ -1,8 +1,10 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 
 import { CreateEarthquakeInput } from '@/app/modules/earthquakes/dto/create-earthquake.input';
 import { FindEarthquakesInput } from '@/app/modules/earthquakes/dto/find-earthquakes.input';
+import { UpdateEarthquakeInput } from '@/app/modules/earthquakes/dto/update-earthquake.input';
+import { EarthquakesEntity } from '@/app/modules/earthquakes/entities/earthquakes.entity';
 import { MessageInterfaceEntity } from '@/app/repositories/common';
 import { CustomLoggerService } from '@/packages/custom-logger';
 import { PrismaService } from '@/packages/prisma/prisma.service';
@@ -27,7 +29,7 @@ export class EarthquakesService {
   async findMany(
     input: FindEarthquakesInput,
     fields: { data: { select: Prisma.EarthquakeSelect } },
-  ): Promise<any> {
+  ): Promise<EarthquakesEntity> {
     try {
       const where: Prisma.EarthquakeWhereInput = {
         OR: [{ location: { contains: input.search || '', mode: 'insensitive' } }],
@@ -87,6 +89,45 @@ export class EarthquakesService {
         'EarthquakesService.create',
       );
       throw new InternalServerErrorException('Failed to create earthquake');
+    }
+  }
+
+  async update(input: UpdateEarthquakeInput): Promise<MessageInterfaceEntity> {
+    try {
+      this.loggerService.log(
+        `Updating earthquake with input: ${JSON.stringify(input)}`,
+        'EarthquakesService.update',
+      );
+
+      const existingEarthquake = await this.prismaService.earthquake.findUnique({
+        where: { id: input.id },
+      });
+
+      if (!existingEarthquake) {
+        this.loggerService.error(
+          `Earthquake not found with id: ${input.id}`,
+          'EarthquakesService.update',
+        );
+        throw new NotFoundException('Earthquake not found');
+      }
+
+      const updated = await this.prismaService.earthquake.update({
+        where: { id: input.id },
+        data: input,
+      });
+
+      this.loggerService.log(
+        `Earthquake updated successfully: ${JSON.stringify(updated)}`,
+        'EarthquakesService.update',
+      );
+
+      return { message: 'Updated earthquake successfully' };
+    } catch (error: any) {
+      this.loggerService.error(
+        `Error in EarthquakesService.update: ${error.message}`,
+        'EarthquakesService.update',
+      );
+      throw new InternalServerErrorException('Failed to update earthquake');
     }
   }
 }
