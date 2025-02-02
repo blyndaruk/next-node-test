@@ -3,7 +3,8 @@ import { isValid, parse } from 'date-fns';
 import { Readable } from 'stream';
 
 import { EarthquakesInput } from '@/app/modules/earthquakes/dto/earthquakes.input';
-import { CustomLoggerService } from '@/packages/custom-logger';
+
+import { CustomLoggerService } from '../../../src/packages/custom-logger';
 
 const csvUrl = process.env.CSV_SEED_URL!;
 const logger = new CustomLoggerService();
