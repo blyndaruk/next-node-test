@@ -24,5 +24,13 @@ model User {
 enum Role {
   ROOT
   ADMIN
-  EMPLOYEE
+}
+
+model Earthquake {
+  id        String   @id @default(uuid())
+  location  String
+  magnitude Float
+  date      DateTime
+
+  @@map("earthquakes")
 }

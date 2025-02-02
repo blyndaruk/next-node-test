@@ -1,7 +1,6 @@
 import { Query, Resolver } from '@nestjs/graphql';
 
-import { ErrorGraphqlHandlingDecorator } from '../../../packages/graphql';
-import { MessageInterfaceEntity } from '../../repositories/common';
+import { ErrorGraphqlHandlingDecorator } from '@/packages/graphql';
 
 import { EarthquakesEntity } from './entities/earthquakes.entity';
 
@@ -11,7 +10,7 @@ export class EarthquakesResolver {
 
   @Query(() => EarthquakesEntity)
   @ErrorGraphqlHandlingDecorator(EarthquakesResolver.name)
-  findManyEarthquakes(): MessageInterfaceEntity {
-    return { message: 'test' };
+  findManyEarthquakes(): EarthquakesEntity {
+    return { id: '1' };
   }
 }

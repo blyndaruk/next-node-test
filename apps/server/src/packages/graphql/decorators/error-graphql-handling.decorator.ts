@@ -1,7 +1,7 @@
 import { ForbiddenError } from '@nestjs/apollo';
 import { BadRequestException, InternalServerErrorException } from '@nestjs/common';
 
-import { CustomLoggerService } from '../../custom-logger';
+import { CustomLoggerService } from '@/packages/custom-logger';
 
 export const ErrorGraphqlHandlingDecorator = (name?: string) => {
   const logger = new CustomLoggerService();

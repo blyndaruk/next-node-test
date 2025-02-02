@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 
-import { PrismaModule } from '../../../packages/prisma';
+import { PrismaModule } from '@/packages/prisma';
 
 import { EarthquakesResolver } from './earthquakes.resolver';
 

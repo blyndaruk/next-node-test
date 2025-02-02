@@ -1,19 +1,23 @@
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from '@prisma/client';
 
-import { usersDataSeed } from './data-seeds'
+import { earthquakesSeed, usersDataSeed } from './data-seeds';
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
 
 const main = async () => {
-  await prisma.$transaction([prisma.user.deleteMany()])
+  await prisma.$transaction([prisma.user.deleteMany()]);
 
-  const newUsers = await usersDataSeed()
+  const newUsers = await usersDataSeed();
+  const newEarthquakes = await earthquakesSeed();
 
-  await prisma.$transaction([prisma.user.createMany({ data: newUsers })])
-}
+  await prisma.$transaction([
+    prisma.user.createMany({ data: newUsers }),
+    prisma.earthquake.createMany({ data: newEarthquakes }),
+  ]);
+};
 
 main()
   .catch((error) => {
-    console.log('seeds error: -----', error)
+    console.error('seeds error: -----', error);
   })
-  .finally(async () => await prisma.$disconnect())
+  .finally(async () => await prisma.$disconnect());

@@ -12,7 +12,7 @@ import {
   ValidateIf,
 } from 'class-validator';
 
-import { MessageGraphqlService } from '../../../packages/graphql/services';
+import { MessageGraphqlService } from '@/packages/graphql/services';
 
 // error message
 const MessageService = new MessageGraphqlService();

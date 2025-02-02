@@ -21,9 +21,9 @@ const bootstrap = async () => {
   );
 
   await app.listen(port, () =>
-    console.log(`server start: port - ${port}; environment - ${nodeEnv}`),
+    console.error(`server start: port - ${port}; environment - ${nodeEnv}`),
   );
 };
 
 // start server
-bootstrap().catch((error) => console.log('--- server error: ', error));
+bootstrap().catch((error) => console.error('--- server error: ', error));

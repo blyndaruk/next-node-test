@@ -12,7 +12,7 @@ export class NodemailerService {
     try {
       await this.mailerService.sendMail({ ...args, bcc: process.env.EMAIL_FROM });
     } catch (error) {
-      console.log(error);
+      console.error(error);
       throw new InternalServerErrorException('Can`t send email');
     }
   }
