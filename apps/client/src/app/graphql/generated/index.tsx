@@ -19,11 +19,77 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean };
   Int: { input: number; output: number };
   Float: { input: number; output: number };
+  DateTime: { input: any; output: any };
+};
+
+export type CreateEarthquakeInput = {
+  date: Scalars['DateTime']['input'];
+  location: Scalars['String']['input'];
+  magnitude: Scalars['Float']['input'];
+};
+
+export type DeleteEarthquakeInput = {
+  id: Scalars['String']['input'];
+};
+
+export type EarthquakeEntity = {
+  __typename?: 'EarthquakeEntity';
+  date: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  location: Scalars['String']['output'];
+  magnitude: Scalars['Float']['output'];
 };
 
 export type EarthquakesEntity = {
   __typename?: 'EarthquakesEntity';
-  id: Scalars['ID']['output'];
+  data: Array<EarthquakeEntity>;
+  pagination: EarthquakesEntityPagination;
+};
+
+export type EarthquakesEntityPagination = {
+  __typename?: 'EarthquakesEntityPagination';
+  order: Scalars['String']['output'];
+  page: Scalars['Int']['output'];
+  pages: Scalars['Int']['output'];
+  sort: Scalars['String']['output'];
+  take: Scalars['Int']['output'];
+  total: Scalars['Int']['output'];
+};
+
+export type FindEarthquakesInput = {
+  pagination: PaginationCommon;
+  search?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type MessageInterfaceEntity = {
+  __typename?: 'MessageInterfaceEntity';
+  message: Scalars['String']['output'];
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  createEarthquake: MessageInterfaceEntity;
+  deleteEarthquake: MessageInterfaceEntity;
+  updateEarthquake: MessageInterfaceEntity;
+};
+
+export type MutationCreateEarthquakeArgs = {
+  input: CreateEarthquakeInput;
+};
+
+export type MutationDeleteEarthquakeArgs = {
+  input: DeleteEarthquakeInput;
+};
+
+export type MutationUpdateEarthquakeArgs = {
+  input: UpdateEarthquakeInput;
+};
+
+export type PaginationCommon = {
+  order: Scalars['String']['input'];
+  page: Scalars['Int']['input'];
+  sort: Scalars['String']['input'];
+  take: Scalars['Int']['input'];
 };
 
 export type Query = {
@@ -31,17 +97,61 @@ export type Query = {
   findManyEarthquakes: EarthquakesEntity;
 };
 
-export type FindManyEarthquakesQueryVariables = Exact<{ [key: string]: never }>;
+export type QueryFindManyEarthquakesArgs = {
+  input: FindEarthquakesInput;
+};
+
+export type UpdateEarthquakeInput = {
+  date?: InputMaybe<Scalars['DateTime']['input']>;
+  id: Scalars['String']['input'];
+  location?: InputMaybe<Scalars['String']['input']>;
+  magnitude?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type FindManyEarthquakesQueryVariables = Exact<{
+  input: FindEarthquakesInput;
+}>;
 
 export type FindManyEarthquakesQuery = {
   __typename?: 'Query';
-  findManyEarthquakes: { __typename?: 'EarthquakesEntity'; id: string };
+  findManyEarthquakes: {
+    __typename?: 'EarthquakesEntity';
+    data: Array<{
+      __typename?: 'EarthquakeEntity';
+      id: string;
+      date: any;
+      location: string;
+      magnitude: number;
+    }>;
+    pagination: {
+      __typename?: 'EarthquakesEntityPagination';
+      total: number;
+      order: string;
+      page: number;
+      pages: number;
+      sort: string;
+      take: number;
+    };
+  };
 };
 
 export const FindManyEarthquakesDocument = gql`
-  query FindManyEarthquakes {
-    findManyEarthquakes {
-      id
+  query FindManyEarthquakes($input: FindEarthquakesInput!) {
+    findManyEarthquakes(input: $input) {
+      data {
+        id
+        date
+        location
+        magnitude
+      }
+      pagination {
+        total
+        order
+        page
+        pages
+        sort
+        take
+      }
     }
   }
 `;
@@ -58,14 +168,16 @@ export const FindManyEarthquakesDocument = gql`
  * @example
  * const { data, loading, error } = useFindManyEarthquakesQuery({
  *   variables: {
+ *      input: // value for 'input'
  *   },
  * });
  */
 export function useFindManyEarthquakesQuery(
-  baseOptions?: Apollo.QueryHookOptions<
+  baseOptions: Apollo.QueryHookOptions<
     FindManyEarthquakesQuery,
     FindManyEarthquakesQueryVariables
-  >,
+  > &
+    ({ variables: FindManyEarthquakesQueryVariables; skip?: boolean } | { skip: boolean }),
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<FindManyEarthquakesQuery, FindManyEarthquakesQueryVariables>(

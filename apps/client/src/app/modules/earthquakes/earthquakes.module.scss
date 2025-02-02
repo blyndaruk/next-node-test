@@ -1,0 +1,13 @@
+.item {
+  font-size: 18px;
+  padding: 14px;
+
+  & + .item {
+    border-top: 1px solid #dedede;
+  }
+
+  span {
+    margin-left: 5px;
+    font-size: 16px;
+  }
+}

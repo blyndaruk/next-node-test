@@ -22,11 +22,11 @@ const RootLayoutComponent: FC<Readonly<IRootLayoutComponent>> = ({ children }) =
   return (
     <>
       <body className={styles.root_layout}>
-        <>
-          <div className={styles.root_layout__inner}>
-            <main className={styles.root_layout__main}>{children}</main>
-          </div>
-        </>
+        <span />
+        <div className={styles.root_layout__inner} style={{ gridTemplateColumns: '1fr' }}>
+          <main className={styles.root_layout__main}>{children}</main>
+        </div>
+        <span />
 
         <Toaster />
 

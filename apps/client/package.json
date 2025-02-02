@@ -24,6 +24,7 @@
     "@mui/material": "^6.4.2",
     "@mui/material-nextjs": "^6.4.2",
     "@svgr/webpack": "^8.1.0",
+    "date-fns": "^4.1.0",
     "graphql": "^16.10.0",
     "graphql-ws": "^6.0.3",
     "moment": "^2.30.1",

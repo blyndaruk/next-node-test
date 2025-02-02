@@ -10,6 +10,8 @@ const LoadingComponent: FC = () => {
       <Skeleton />
 
       <Skeleton animation={'wave'} />
+      <Skeleton animation={'wave'} />
+      <Skeleton animation={'wave'} />
 
       <Skeleton animation={false} />
     </div>
